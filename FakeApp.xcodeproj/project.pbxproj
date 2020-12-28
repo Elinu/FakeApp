@@ -30,6 +30,7 @@
 		82E1922B2568EEE5004DA376 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		82E1922C2568EEE5004DA376 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		82E19235256967CC004DA376 /* autoBuild.pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; path = autoBuild.pl; sourceTree = SOURCE_ROOT; };
+		82F5972D259A1D9200C913A8 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +75,7 @@
 				82E1922B2568EEE5004DA376 /* Info.plist */,
 				82E1922C2568EEE5004DA376 /* main.m */,
 				82E19235256967CC004DA376 /* autoBuild.pl */,
+				82F5972D259A1D9200C913A8 /* README.md */,
 			);
 			path = FakeApp;
 			sourceTree = "<group>";

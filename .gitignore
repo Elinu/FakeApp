@@ -72,3 +72,5 @@ temp/
 targetApp/
 xcshareddata
 
+# System files
+.DS_store

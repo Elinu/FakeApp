@@ -46,8 +46,8 @@ my $info_plist_file = $app_package_path . "/Info.plist";
 my $entitlements_file = $temp_dir . "/tmp.plist";
 my $original_ent_file = $app_package_path . "/embedded.mobileprovision";
 print "raw entitlements file: $original_ent_file\n";
-system("codesign -d --entitlements :- $app_package_path > $entitlements_file");
-die "Fail to export entitlements, $!" if $? != 0;
+#system("codesign -d --entitlements :- $app_package_path > $entitlements_file");
+#die "Fail to export entitlements, $!" if $? != 0;
 
 # Copy ipa resource to replace destination app package
 RemoveDirIfExists($app_package_path);
@@ -59,7 +59,11 @@ system "cp", "-rf", ($temp_app_path . "/"), $app_package_path;
 die "Can't copy package to $app_package_path" if $? != 0;
 
 my $display_name = ReadInfoPlist($temp_app_path . "/Info.plist", "CFBundleDisplayName");
-$display_name =~ s/\\u(....)/ pack 'U*', hex($1) /eg;
+if ($display_name) {
+    $display_name =~ s/\\u(....)/ pack 'U*', hex($1) /eg;
+} else {
+    $display_name = $ENV{"TARGET_NAME"};
+}
 print "display name: $display_name\n";
 
 # Rename mach-o file
@@ -99,12 +103,13 @@ RemoveDirIfExists($plugins_dir);
 $watch_dir = $app_package_path . "/Watch";
 RemoveDirIfExists($watch_dir);
 
-# Modify info.plist
+# Modify info.plist (for string value)
 sub PlistModify {
     my $key = $_[0];
     my $value = $_[1];
     my $plist = $_[2];
-    system "/usr/libexec/PlistBuddy", "-c", "Set :$key $value", $plist;
+    system("defaults write $plist $key $value");
+#    system "/usr/libexec/PlistBuddy", "-c", "Set :$key $value", $plist;
     die "Can't set $key for $value in $plist" if $? != 0;
 }
 
